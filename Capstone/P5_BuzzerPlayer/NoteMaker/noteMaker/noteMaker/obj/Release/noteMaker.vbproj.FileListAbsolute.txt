@@ -1,0 +1,10 @@
+C:\Users\1\Desktop\noteMaker\noteMaker\bin\Release\noteMaker.exe.config
+C:\Users\1\Desktop\noteMaker\noteMaker\bin\Release\noteMaker.exe
+C:\Users\1\Desktop\noteMaker\noteMaker\bin\Release\noteMaker.pdb
+C:\Users\1\Desktop\noteMaker\noteMaker\bin\Release\noteMaker.xml
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.Resources.resources
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.vbproj.GenerateResource.Cache
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.exe
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.xml
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.pdb
+C:\Users\1\Desktop\noteMaker\noteMaker\obj\Release\noteMaker.Form1.resources
