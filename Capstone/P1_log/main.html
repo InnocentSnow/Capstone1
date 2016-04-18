@@ -1,0 +1,191 @@
+<html>
+	<head>
+		<style type="text/css">
+<!--
+			div
+			{
+				background-color:rgb(51,102,204);
+				vertical-align:middle;
+				width:300px;
+				height:150px;
+				position:absolute;
+				left:1048px;
+				top:80px;
+				z-index:1;
+			}
+-->
+		</style>
+
+		<script type="text/javascript">
+			var obj;
+			var dirX = [];
+			var dirY = [];
+			var posX = [];
+			var posY = [];
+			var width = [];
+			var height = [];
+			var minSpeed = 1;
+			var maxSpeed = 5;
+			var maxColorSpeed = 30;
+			var minColor = 64;
+			
+			var r = [];
+			var g = [];
+			var b = [];
+					
+			var dr = [];
+			var dg = [];
+			var db = [];
+			
+			function getRand(minVal, maxVal)
+			{
+				return Math.floor(Math.random() * (maxVal - minVal)) + minVal;
+			}
+		
+			function resetOrder()
+			{
+				var arr = [];
+				for(var i = 0; i < obj.length; ++i) { arr[i] = i; }
+				for(var i = 0; i < obj.length; ++i)
+				{
+					var j	= getRand(0, obj.length);
+					temp	= arr[i];
+					arr[i]	= arr[j];
+					arr[j]	= temp;
+				}
+				
+				for(var i = 0; i < obj.length; ++i) obj[i].style["z-index"] = arr[i];
+				
+				setTimeout(resetOrder, 1000);
+			}
+			
+			function resetColor()
+			{
+				for(var i = 0; i < obj.length; ++i)
+				{
+					r[i] += dr[i];
+					g[i] += dg[i];
+					b[i] += db[i];
+					
+					if(r[i] < minColor) { r[i] = minColor; dr[i] = getRand(0, maxColorSpeed); }
+					if(g[i] < minColor) { g[i] = minColor; dg[i] = getRand(0, maxColorSpeed); }
+					if(b[i] < minColor) { b[i] = minColor; db[i] = getRand(0, maxColorSpeed); }
+					
+					if(256 <= r[i]) { r[i] = 255; dr[i] = - getRand(0, maxColorSpeed); }
+					if(256 <= g[i]) { g[i] = 255; dg[i] = - getRand(0, maxColorSpeed); }
+					if(256 <= b[i]) { b[i] = 255; db[i] = - getRand(0, maxColorSpeed); }
+					
+					obj[i].style.backgroundColor = "#" + r[i].toString(16) + g[i].toString(16) + b[i].toString(16);
+				}
+				
+				setTimeout(resetColor, 100);
+			}
+		
+			function moveObject()
+			{
+				var screenWidth = window.outerWidth || document.body.clientWidth;
+				var screenHeight = window.outerHeight || document.body.clientHeight;			
+				
+				for(var i = 0; i < obj.length; ++i)
+				{
+					posX[i] += dirX[i];
+					posY[i] += dirY[i];
+					
+					obj[i].style.left = posX[i] + "px";
+					obj[i].style.top = posY[i] + "px";
+					
+					if(posX[i] < 0) dirX[i] = getRand(minSpeed, maxSpeed);
+					if(posY[i] < 0) dirY[i] = getRand(minSpeed, maxSpeed);
+					if(screenWidth	< posX[i] + width[i])	dirX[i] = - getRand(minSpeed, maxSpeed);
+					if(screenHeight	< posY[i] + height[i])	dirY[i] = - getRand(minSpeed, maxSpeed);
+				}
+				
+				setTimeout(moveObject, 10);
+			}
+			
+			function init()
+			{				
+				obj = document.getElementsByName("content");
+				
+				for(var i = 0; i < obj.length; ++i)
+				{
+					posX[i] = parseInt(obj[i].style.left, 10);
+					posY[i] = parseInt(obj[i].style.top, 10);
+					width[i] = parseInt(obj[i].style.width, 10) || 300;
+					height[i] = parseInt(obj[i].style.height, 10) || 150;
+					
+					dirX[i] = getRand(minSpeed, maxSpeed);
+					dirY[i] = getRand(minSpeed, maxSpeed);
+					
+					color = obj[i].style.backgroundColor;
+					var reg = /rgb\s*\((\d*),\s*(\d*),\s*(\d*)\s*\)/;
+					
+					r[i] = parseInt(color.replace(reg, "$1"), 16);
+					g[i] = parseInt(color.replace(reg, "$2"), 16);
+					b[i] = parseInt(color.replace(reg, "$3"), 16);
+					
+					dr[i] = getRand(0, maxColorSpeed);
+					dg[i] = getRand(0, maxColorSpeed);
+					db[i] = getRand(0, maxColorSpeed);
+					
+					if(Math.random() < 0.5) dirX[i] *= -1;
+					if(Math.random() < 0.5) dirY[i] *= -1;
+				}
+				
+				moveObject();
+				resetOrder();
+				resetColor();
+			}
+			
+		</script>
+
+		<title>Express</title>
+	</head>
+	
+	<body bgcolor="#222222" onload="init();">
+
+		<div name="content" style="background-color:rgb(51,102,204); left:320px; top:200px;">
+		<p align="center"><font color="#ffffff"><br><b>$ipAddress</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(100,102,204); left:765px; top:28px;">
+		<p align="center"><font color="#ffffff"><br><b>$protocol</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(51,202,50); left:13px; top:533px;">
+		<p align="center"><font color="#ffffff"><br><b>$hostname</b></font></p>
+		</div>
+
+		<div name="content" style="background-color:rgb(251,87,14); left:386px; top:38px;">
+		<p align="center"><font color="#ffffff"><br><b>$baseUrl</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(251,100,100); left:638px; top:210px; width:915px">
+		<p align="center"><font color="#ffffff"><br><b>$cookies</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(151,102,10); left:494px; top:374px; width:1062px">
+		<p align="center"><font color="#ffffff"><br><b>$query</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(151,55,77); left:1226px; top:27px;">
+		<p align="center"><font color="#ffffff"><br><b>$date</b></font></p>
+		</div>
+
+		<div name="content" style="background-color:rgb(150,100,250); left:439px; top:540px; width:1115px">
+		<p align="center"><font color="#ffffff"><br><b>$userAgent</b></font></p>
+		</div>
+
+		<div name="content" style="background-color:rgb(0,100,250); left:10px; top:10px;">
+		<p align="center"><font color="#ffffff"><br><b>$browser</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(200,202,54); left:10px; top:200px;">
+		<p align="center"><font color="#ffffff"><br><b>$os</b></font></p>
+		</div>
+		
+		<div name="content" style="background-color:rgb(251,2,250); left:183px; top:363px;">
+		<p align="center"><font color="#ffffff"><br><b>$cpu</b></font></p>
+		</div>
+	</body>
+</html>
