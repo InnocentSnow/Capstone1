@@ -12,5 +12,5 @@ void main()
     vec4 originColor = texture2D(u_origin, v_originCoord);
 
     if(originColor.w == 0.0) gl_FragColor = textureColor;
-    else gl_FragColor = 0.8 * textureColor + 0.2 * originColor;
+    else gl_FragColor = 0.9 * textureColor + 0.1 * originColor;
 }

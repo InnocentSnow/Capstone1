@@ -11,8 +11,8 @@ import com.mango.vr.vrplayer.vr.VRRenderer;
 
 public class RenderTarget
 {
-    private static int renderTargetWidth = 256;
-    private static int renderTargetHeight = 256;
+    private static int renderTargetWidth = 1024;
+    private static int renderTargetHeight = 1024;
 
     private int oldFrameBuffer[] = new int[1];
     private int renderTargetFrameBuffer;

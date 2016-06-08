@@ -36,7 +36,7 @@ public class VRRenderer implements GvrView.StereoRenderer
     private float matVP[] = new float[16];
     private float matCamera[] = new float[16];
 
-    private Cylinder cylinder = new Cylinder(1.0f, 1.4f);
+    private Cylinder cylinder = new Cylinder(0.7f, 1.4f);
     private CylinderTexture cylinderTexture;
     private float mAngle = 0.0f;
 
